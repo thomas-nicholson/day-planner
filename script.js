@@ -10,8 +10,6 @@ var hourArray = [
     "5PM",
 ]
 
-var now = moment().format("H");
-
 document.getElementById("currentDay").textContent = moment().format('dddd, MMMM Do');
 
 function saveSchedule() {
@@ -35,8 +33,7 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
 
     //Construct div to hold saved tasks
     var descriptionDiv = $("<textarea />");
-    console.log(currentHour);
-    console.log(thisHour24);
+    descriptionDiv.val(localStorage.getItem(thisHourName));
     if (thisHour24 < currentHour) {
         descriptionDiv.addClass("col-sm-10 past");
     } else if (thisHour24 == currentHour) {
@@ -45,6 +42,7 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
         descriptionDiv.addClass("col-sm-10 future");
     }
     timeBlockDiv.append(descriptionDiv);
+
 
     //Construct Div to hold save button
     var saveDiv = $("<div />");
@@ -60,6 +58,8 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     container.append(timeBlockDiv[0]);
 
 }
+
+var now = moment().format("H");
 
 for (i in hourArray) {
     var dt = moment(hourArray[i], ["hA"]).format("HH");
