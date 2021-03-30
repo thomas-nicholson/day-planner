@@ -12,9 +12,18 @@ var hourArray = [
 
 var now = moment().format("H");
 
-function constructTimeBlock(currentHour, thisHour24, thisHourName) {
-    
+document.getElementById("currentDay").textContent = moment().format('dddd, MMMM Do');
 
+function saveSchedule() {
+    console.log("save");
+    var contentArray = document.getElementsByTagName('textarea');
+    for (i in hourArray) {
+        console.log(hourArray[i], contentArray[i].value);
+        localStorage.setItem(hourArray[i], contentArray[i].value);
+    }
+}
+
+function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     var timeBlockDiv = $("<div />");
     timeBlockDiv.addClass("row time-block");
 
@@ -25,7 +34,7 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     timeBlockDiv.append(hourDiv);
 
     //Construct div to hold saved tasks
-    var descriptionDiv = $("<div />");
+    var descriptionDiv = $("<textarea />");
     console.log(currentHour);
     console.log(thisHour24);
     if (thisHour24 < currentHour) {
@@ -40,6 +49,7 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     //Construct Div to hold save button
     var saveDiv = $("<div />");
     saveDiv.addClass("saveBtn col-sm-1");
+    saveDiv.click(saveSchedule);
     var saveIcon = $("<I />");
     saveIcon.addClass("fas fa-save");
     saveDiv.append(saveIcon);
@@ -51,8 +61,16 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
 
 }
 
+function setSaveEventListeners() {
+    var saveButtons = document.getElementsByClassName('saveBtn');
+
+    for (i in saveButtons) {
+        console.log(saveButtons[i]);
+        saveButtons[i]
+    }
+}
+
 for (i in hourArray) {
     var dt = moment(hourArray[i], ["hA"]).format("HH");
     constructTimeBlock(now, dt, hourArray[i]);
 }
-
