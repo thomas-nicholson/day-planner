@@ -61,15 +61,6 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
 
 }
 
-function setSaveEventListeners() {
-    var saveButtons = document.getElementsByClassName('saveBtn');
-
-    for (i in saveButtons) {
-        console.log(saveButtons[i]);
-        saveButtons[i]
-    }
-}
-
 for (i in hourArray) {
     var dt = moment(hourArray[i], ["hA"]).format("HH");
     constructTimeBlock(now, dt, hourArray[i]);
