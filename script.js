@@ -47,7 +47,6 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     var saveIcon = $("<I />");
     saveIcon.addClass("fas fa-save");
     saveDiv.append(saveIcon);
-    //<i class="fas fa-save"></i>
     timeBlockDiv.append(saveDiv);
 
     var container = $(".container")[0];
