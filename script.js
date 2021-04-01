@@ -12,13 +12,9 @@ var hourArray = [
 
 document.getElementById("currentDay").textContent = moment().format('dddd, MMMM Do');
 
-function saveSchedule() {
+function saveSchedule(event) {
     console.log("save");
-    var contentArray = document.getElementsByTagName('textarea');
-    for (i in hourArray) {
-        console.log(hourArray[i], contentArray[i].value);
-        localStorage.setItem(hourArray[i], contentArray[i].value);
-    }
+    localStorage.setItem(event.data.hourName, event.data.content.val());
 }
 
 function constructTimeBlock(currentHour, thisHour24, thisHourName) {
@@ -27,7 +23,7 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
 
     //Construct div to hold hour name
     var hourDiv = $("<div />");
-    hourDiv.addClass("col-sm-1 hour");
+    hourDiv.addClass("col-md-1 col-sm-2 col-2 hour");
     hourDiv.append(thisHourName);
     timeBlockDiv.append(hourDiv);
 
@@ -35,19 +31,19 @@ function constructTimeBlock(currentHour, thisHour24, thisHourName) {
     var descriptionDiv = $("<textarea />");
     descriptionDiv.val(localStorage.getItem(thisHourName));
     if (thisHour24 < currentHour) {
-        descriptionDiv.addClass("col-sm-10 past");
+        descriptionDiv.addClass("col-md-10 col-sm-8 col-6 past");
     } else if (thisHour24 == currentHour) {
-        descriptionDiv.addClass("col-sm-10 present");
+        descriptionDiv.addClass("col-md-10 col-sm-8 col-6 present");
     } else {
-        descriptionDiv.addClass("col-sm-10 future");
+        descriptionDiv.addClass("col-sm-10 col-sm-8 col-6 future");
     }
     timeBlockDiv.append(descriptionDiv);
 
 
     //Construct Div to hold save button
     var saveDiv = $("<div />");
-    saveDiv.addClass("saveBtn col-sm-1");
-    saveDiv.click(saveSchedule);
+    saveDiv.addClass("saveBtn col-md-1 col-sm-2 col-2");
+    saveDiv.click({hourName: thisHourName, content: descriptionDiv}, saveSchedule);
     var saveIcon = $("<I />");
     saveIcon.addClass("fas fa-save");
     saveDiv.append(saveIcon);
